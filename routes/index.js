@@ -7,12 +7,13 @@ import adminRoutes from "./v1/admin/index.js"
 import alumni_student_Routes from "./v1/alumni_student/index.js";
 import postRoutes from "./v1/post/index.js"
 import { checkForAuthentication , restrictToOnly } from "../middlewares/auth.js";
+import { seed } from "../services/seed.js";
 const router = Router()
 
 
 // Only admin access this route
 
-router.use("/v1/admin",checkForAuthentication, restrictToOnly("ADMIN"),adminRoutes)
+router.use("/admin",checkForAuthentication, restrictToOnly("ADMIN"),adminRoutes)
 
 // Both student and alumni 
 router.use("/v1/alumni-student" ,checkForAuthentication, alumni_student_Routes)
@@ -24,9 +25,7 @@ router.use("/v1/handle-media",checkForAuthentication , mediaRoutes)
 // All can access this route
 router.use("/v1/user" , userRoutes)
 
-
 // //Seeding database
 // router.post("/v1/seed" , seed)
-
 
 export default router
