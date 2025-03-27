@@ -11,7 +11,7 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "ROLE" NOT NULL DEFAULT 'STUDENT',
-    "profileImage" TEXT NOT NULL DEFAULT 'https://ibb.co/5W6TpnY',
+    "profileImage" TEXT NOT NULL DEFAULT 'https://i.ibb.co/QFf9SC8/img-avatar.png',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -83,7 +83,7 @@ CREATE TABLE "Comment" (
 CREATE TABLE "PostLike" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "postId" TEXT,
+    "postId" TEXT NOT NULL,
 
     CONSTRAINT "PostLike_pkey" PRIMARY KEY ("id")
 );
@@ -92,7 +92,7 @@ CREATE TABLE "PostLike" (
 CREATE TABLE "CommentLike" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "commentId" TEXT,
+    "commentId" TEXT NOT NULL,
 
     CONSTRAINT "CommentLike_pkey" PRIMARY KEY ("id")
 );
@@ -146,10 +146,10 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "PostLike" ADD CONSTRAINT "PostLike_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostLike" ADD CONSTRAINT "PostLike_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "PostLike" ADD CONSTRAINT "PostLike_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CommentLike" ADD CONSTRAINT "CommentLike_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CommentLike" ADD CONSTRAINT "CommentLike_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "CommentLike" ADD CONSTRAINT "CommentLike_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
